@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": "./src", // 绝对路径会去 src 下面找
     "target": "es5",
     "lib": [
       "dom",
