@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import qs from 'qs'
 
-import { clearObject } from 'utils'
+import { clearObject, useMount, useDebounce } from 'utils'
 
 import List from './list'
 import Search from './search'
@@ -17,21 +17,23 @@ export default function Index() {
   const [list, setList] = useState([])
   const [users, setUsers] = useState([])
 
+  const debounce = useDebounce(param, 1000)
+
   useEffect(() => {
-    fetch(`${api}/projects?${qs.stringify(clearObject(param))}`).then(async res => {
+    fetch(`${api}/projects?${qs.stringify(clearObject(debounce))}`).then(async res => {
       if (res.ok) {
         setList(await res.json())
       }
     })
-  }, [param])
+  }, [debounce])
 
-  useEffect(() => {
+  useMount(() => {
     fetch(`${api}/users`).then(async res => {
       if (res.ok) {
         setUsers(await res.json()) 
       }
     })
-  }, [])
+  })
 
   return (
     <>
