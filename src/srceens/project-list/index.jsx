@@ -13,7 +13,6 @@ export default function Index() {
     name: '',
     personId: ''
   })
-  console.log(param);
   const [list, setList] = useState([])
   const [users, setUsers] = useState([])
 
