@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import qs from 'qs'
+import axios from 'axios'
 
 import { clearObject, useMount, useDebounce } from 'utils'
 
@@ -19,19 +20,25 @@ export default function Index() {
   const debounce = useDebounce(param, 1000)
 
   useEffect(() => {
-    fetch(`${api}/projects?${qs.stringify(clearObject(debounce))}`).then(async res => {
-      if (res.ok) {
-        setList(await res.json())
-      }
+    axios.get(`${api}/projects?${qs.stringify(clearObject(debounce))}`).then(res => {
+      setList(res.data)
     })
+    // fetch(`${api}/projects?${qs.stringify(clearObject(debounce))}`).then(async res => {
+    //   if (res.ok) {
+    //     setList(await res.json())
+    //   }
+    // })
   }, [debounce])
 
   useMount(() => {
-    fetch(`${api}/users`).then(async res => {
-      if (res.ok) {
-        setUsers(await res.json()) 
-      }
+    axios.get(`${api}/users`).then(res => {
+      setUsers(res.data)
     })
+    // fetch(`${api}/users`).then(async res => {
+    //   if (res.ok) {
+    //     setUsers(await res.json()) 
+    //   }
+    // })
   })
 
   return (
