@@ -1,6 +1,21 @@
 import React from 'react'
 
-export default function List({ users, list }) {
+import { IUser } from './search'
+
+interface IProject {
+  id: string
+  name: string
+  personId: string
+  pin: boolean
+  organization: string
+}
+
+interface IList {
+  users: IUser[]
+  list: IProject[]
+}
+
+export default function List({ users, list }: IList) {
   console.log(list);
   return (
     <>

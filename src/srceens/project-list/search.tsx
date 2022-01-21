@@ -1,14 +1,31 @@
 import React from 'react'
 
-export default function Search({ users, param, setParam }) {
-  const  handleChangeParamInput = e => {
+export interface IUser {
+  id: string,
+  name: string,
+  email: string,
+  title: string,
+  organization: string
+}
+
+interface ISearch {
+  users: IUser[],
+  param: {
+    name: string,
+    personId: string
+  },
+  setParam: (param: ISearch['param']) => void
+}
+
+export default function Search({ users, param, setParam }: ISearch) {
+  const  handleChangeParamInput = (e: any) => {
     setParam({
       ...param,
       name: e.target.value
     })
   }
 
-  const handleChangeParamSelect = e => {
+  const handleChangeParamSelect = (e: any) => {
     setParam({
       ...param,
       personId: e.target.value
