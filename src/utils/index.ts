@@ -1,11 +1,7 @@
 import { useEffect, useState } from "react"
 
-interface IObject {
-  name: string,
-  personId: string
-}
-
-const isFalsy = (value: any) => value === 0 ? false : !value
+// unknown 只能赋值给 any 和 unknown，unknown 类型上不能读取方法
+const isFalsy = (value: unknown) => value === 0 ? false : !value
 
 // 在一个函数里改变传入的对象是不好的，因为对象是引用类型，这里改变了，其他地方也要改变
 export function clearObject<T>(object: T) {
@@ -34,7 +30,7 @@ export const useMount = (callback: () => void) => {
   }, [])
 }
 
-export const useDebounce = (value: IObject, delay?: number) => {
+export const useDebounce = <V>(value: V, delay?: number) => {
   const [debounce, setDebounce] = useState(value)
 
   useEffect(() => {
