@@ -44,3 +44,23 @@ export const useDebounce = <V>(value: V, delay?: number) => {
 
   return debounce
 }
+
+export const useArray = <T>(person: T[]) => { // 自动推导
+  const [value, setValue] = useState(person)
+
+  return {
+    value,
+    add(item: T) {
+      setValue([item, ...value])
+    },
+    clear() {
+      setValue([])
+    },
+    removeIndex(index: number) {
+      const copy = [...value]
+      // splice 会改变原数组
+      copy.splice(index, 1)
+      setValue(copy)
+    }
+  }
+}
