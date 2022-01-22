@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Login from 'srceens/login'
+import Login from './login';
 import Register from './register';
 
 // 非登录的状态

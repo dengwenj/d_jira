@@ -4,6 +4,8 @@ import * as auth from 'auth-provider'
 import { ILoginParam } from 'srceens/login'
 import { IUser } from "srceens/project-list/search"
 import { ReactChildren } from './index'
+import { http } from "utils/http"
+import { useMount } from "utils"
 
 interface ContextValue {
   login: (form: ILoginParam) => Promise<void>
@@ -14,8 +16,26 @@ interface ContextValue {
  
 export const authContext = createContext<ContextValue | undefined>(undefined)
 
+const bootstrapUser = async () => {
+  let user = null
+
+  const token = auth.getToken()
+  if (token) {
+    const data = await http('me', { token })
+    user = data.user
+  }
+
+  return user
+}
+
 export default function AuthProvider({ children }: ReactChildren) {
   const [user, setUser] = useState<IUser | null>(null)
+
+  useMount(() => {
+    bootstrapUser().then((res) => {
+      setUser(res)
+    })
+  })
 
   const login = async (form: ILoginParam) => {
     const res = await auth.handleLogin(form)

@@ -1,6 +1,7 @@
 import qs from 'qs'
 
 import { loginOut } from 'auth-provider'
+import { useAuth } from 'hooks/useAuth'
 
 const api = process.env.REACT_APP_API_URL
 
@@ -9,7 +10,7 @@ interface Config extends RequestInit {
   token?: string 
 }
 
-export const http = async (endpoint: string, { data, token, headers, ...args }: Config) => {
+export const http = async (endpoint: string, { data, token, headers, ...args }: Config = {}) => {
   const config = {
     method: 'GET',
     headers: {
@@ -41,4 +42,13 @@ export const http = async (endpoint: string, { data, token, headers, ...args }: 
   } else {
     return Promise.reject(res)
   } 
+}
+
+export const useHttp = () => {
+  const { user } = useAuth()
+
+  // ...[endpoint, config] 参数里面这里写就展开了，本来是解构的，然后实参那里就要传两个参数了，不是一个了 用了...
+  return (...[endpoint, config]: Parameters<typeof http>) => {
+    return http(endpoint, { ...config, token: user?.token })
+  }
 }

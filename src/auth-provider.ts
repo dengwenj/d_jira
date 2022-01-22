@@ -14,7 +14,7 @@ interface IData {
 
 // 这个模块在 context 文件夹里面用的
 
-export const getToken = localStorage.getItem(__AUTH_PROVIDER_TOKEN__)
+export const getToken = () => localStorage.getItem(__AUTH_PROVIDER_TOKEN__)
  
 export const handleUserResponse = ({ user }: User) => {
   localStorage.setItem(__AUTH_PROVIDER_TOKEN__, user.token || '')
