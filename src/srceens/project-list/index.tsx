@@ -23,22 +23,12 @@ export default function Index() {
     axios.get(`${api}/projects?${qs.stringify(clearObject(debounce))}`).then(res => {
       setList(res.data)
     })
-    // fetch(`${api}/projects?${qs.stringify(clearObject(debounce))}`).then(async res => {
-    //   if (res.ok) {
-    //     setList(await res.json())
-    //   }
-    // })
   }, [debounce])
 
   useMount(() => {
     axios.get(`${api}/users`).then(res => {
       setUsers(res.data)
     })
-    // fetch(`${api}/users`).then(async res => {
-    //   if (res.ok) {
-    //     setUsers(await res.json()) 
-    //   }
-    // })
   })
 
   return (

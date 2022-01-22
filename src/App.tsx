@@ -1,14 +1,15 @@
 import React from 'react';
 
-// import Index from 'srceens/project-list';
-// import Try from 'srceens/try-usearray';
-import Login from 'srceens/login';
+import { useAuth } from 'hooks/useAuth'
+import AuthenticatedApp from 'authenticated-app'
+import UnauthenticatedApp from 'unauthenticated-app';
 
 function App() {
+  const { user } = useAuth()
   return (
-    // <Index />
-    // <Try />
-    <Login />
+    <>
+      {user ? <AuthenticatedApp /> : <UnauthenticatedApp />}
+    </>
   );
 }
 

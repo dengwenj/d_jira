@@ -29,6 +29,7 @@ export default function AuthProvider({ children }: ReactChildren) {
 
   const loginOut = () => auth.loginOut().then(() => setUser(null))
 
+  // <authContext.Provider> App 组件在这里面 </authContext.Provider>
   return  <authContext.Provider children={children} value={{ login, register, loginOut, user }} />
 }
 
