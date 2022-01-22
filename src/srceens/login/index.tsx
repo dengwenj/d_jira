@@ -1,15 +1,14 @@
-import React, { FormEvent } from 'react';
+import React, { FormEvent } from 'react'
 
-interface ILoginParam {
+import { useAuth } from 'hooks/useAuth'
+
+export interface ILoginParam {
   username: string
   password: string
 }
 
 export default function Login() {
-  const handleLogin = async (params: ILoginParam) => {
-    // const res = await login(params)
-    // const { token } = res.data.user
-  }
+  const { login, user } = useAuth()
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -17,11 +16,14 @@ export default function Login() {
     const username = (e.currentTarget.elements[0] as HTMLInputElement).value
     const password = (e.currentTarget.elements[1] as HTMLInputElement).value
 
-    handleLogin({ username, password })
+    login({ username, password })
   }
 
   return (
     <form onSubmit={handleSubmit}>
+      <div>
+        {user ? user.name : ''}
+      </div>
       <div>
         <label htmlFor="">用户名</label>
         <input type="text" id='username' />

@@ -21,14 +21,14 @@ export const handleUserResponse = ({ user }: User) => {
 
 export const handleLogin = async (data: IData) => {
   const res = await login(data)
-  const user = handleUserResponse(res.data)
+  return handleUserResponse(res.data)
 }
 
 export const handleRegister = async (data: IData) => {
   const res = await register(data)
-  const user = handleUserResponse(res.data)
+  return handleUserResponse(res.data)
 }
 
-export const loginOut = localStorage.removeItem(__AUTH_PROVIDER_TOKEN__)
+export const loginOut = async () => localStorage.removeItem(__AUTH_PROVIDER_TOKEN__)
 
 export {}
