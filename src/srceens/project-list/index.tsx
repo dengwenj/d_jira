@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import qs from 'qs'
-import axios from 'axios'
 
-import { clearObject, useMount, useDebounce } from 'utils'
+import { useMount, useDebounce } from 'utils'
+import { projects, user } from 'api/hh'
 
 import List from './list'
 import Search from './search'
-
-const api = process.env.REACT_APP_API_URL
 
 export default function Index() {
   const [param, setParam] = useState({
@@ -20,15 +17,14 @@ export default function Index() {
   const debounce = useDebounce(param, 1000)
 
   useEffect(() => {
-    axios.get(`${api}/projects?${qs.stringify(clearObject(debounce))}`).then(res => {
+    projects(debounce).then((res) => {
       setList(res.data)
     })
   }, [debounce])
 
-  useMount(() => {
-    axios.get(`${api}/users`).then(res => {
-      setUsers(res.data)
-    })
+  useMount(async () => {
+    const res = await user()
+    setUsers(res.data)
   })
 
   return (
