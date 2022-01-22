@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
 import { loadServer } from 'my-jira-dev-tool';
+
+import App from './App';
 
 loadServer(() => {
   ReactDOM.render(
@@ -15,4 +14,3 @@ loadServer(() => {
 
 
 
-reportWebVitals();

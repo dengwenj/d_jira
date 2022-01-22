@@ -4,8 +4,6 @@ import React from 'react';
 // import Try from 'srceens/try-usearray';
 import Login from 'srceens/login';
 
-import './App.css';
-
 function App() {
   return (
     // <Index />
