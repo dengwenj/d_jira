@@ -3,12 +3,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { loadServer } from 'my-jira-dev-tool';
 
-ReactDOM.render(
+loadServer(() => {
+  ReactDOM.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,
   document.getElementById('root')
-);
+)})
+
+
 
 reportWebVitals();
