@@ -1,5 +1,4 @@
 import React, { FormEvent } from 'react';
-import { login } from 'api/hh';
 
 interface ILoginParam {
   username: string
@@ -8,9 +7,8 @@ interface ILoginParam {
 
 export default function Login() {
   const handleLogin = async (params: ILoginParam) => {
-    const res = await login(params)
-    const { token } = res.data.user
-    localStorage.setItem('token', token)
+    // const res = await login(params)
+    // const { token } = res.data.user
   }
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
