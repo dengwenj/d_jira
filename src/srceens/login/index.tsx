@@ -1,18 +1,14 @@
 import React, { FormEvent } from 'react';
-import axios from 'axios'
-
-const api = process.env.REACT_APP_API_URL
-
+import { login } from 'api/hh';
 interface ILoginParam {
   username: string
   password: string
 }
 
 export default function Login() {
-  const login = (params: ILoginParam) => {
-    axios.post(`${api}/login`, params).then(res => {
-      console.log(res);
-    })
+  const handleLogin = async (params: ILoginParam) => {
+    const res = await login(params)
+    console.log(res);
   }
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -21,7 +17,7 @@ export default function Login() {
     const username = (e.currentTarget.elements[0] as HTMLInputElement).value
     const password = (e.currentTarget.elements[1] as HTMLInputElement).value
 
-    login({ username, password })
+    handleLogin({ username, password })
   }
 
   return (
