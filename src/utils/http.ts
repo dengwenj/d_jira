@@ -84,3 +84,4 @@ for (const key in { name: 'gg', age: 2 }) {
 type Partial<T> = {
   [P in keyof T]?: T[P] // P 也是泛型
 }
+// typeof keyof in Omit Partial Pick Exclude Parameters

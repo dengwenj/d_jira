@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
+import { Button, Card } from 'antd'
 
 import Login from './login';
 import Register from './register';
@@ -8,10 +9,13 @@ export default function UnauthenticatedApp() {
   const [isRegister, setIsRegister] = useState(false)
 
   return (
-    <>
-      {/* 展示登录页面或者注册页面 */}
-      {isRegister ? <Register /> : <Login />} 
-      <button onClick={() => setIsRegister(!isRegister)}>切换到{isRegister ? '登录' : '注册'}</button>
-    </>
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <Card>
+        {isRegister ? <Register /> : <Login />} 
+        <div style={{ textAlign: 'center' }}>
+          <Button onClick={() => setIsRegister(!isRegister)}>切换到{isRegister ? '登录' : '注册'}</Button>
+        </div>
+      </Card>
+    </div>
   )
 }

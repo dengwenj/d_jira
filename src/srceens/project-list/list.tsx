@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useMemo } from 'react'
+import { Table } from 'antd'  
 
 import { IUser } from './search'
 
@@ -16,29 +17,32 @@ interface IList {
 }
 
 export default function List({ users, list }: IList) {
-  console.log(list);
+  const columns = useMemo(() => {
+    return [
+    {
+      title: '名称',
+      dataIndex: 'name',
+      key: 'name',
+      sorter: (a: any, b: any) => a.name.localeCompare(b.name)
+    },
+    {
+      title: '负责人', 
+      key: 'personId',
+      dataIndex: 'personId',
+      render(value: number | string) {
+        return <span>
+          { users.find((item) => {
+            return value === item.id
+          })?.name }
+        </span>
+      }
+    }
+  ]
+  }, [users])
+
   return (
     <>
-      <table>
-        <thead>
-          <tr>
-            <th>名称</th>
-            <th>负责人</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            list.map(project => {
-              return (
-                <tr key={project.id}>
-                  <td>{project.name}</td>
-                  <td>{users.find(user => user.id === project.personId)?.name}</td>
-                </tr>
-              )
-            })
-          }
-        </tbody>
-      </table> 
+     <Table pagination={false} dataSource={list} columns={columns} />
     </>
   )
 }

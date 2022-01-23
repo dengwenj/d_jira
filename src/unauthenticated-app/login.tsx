@@ -1,4 +1,5 @@
-import React, { FormEvent } from 'react'
+import React from 'react'
+import { Form, Input, Button } from 'antd'
 
 import { useAuth } from 'hooks/useAuth'
 
@@ -10,30 +11,25 @@ export interface ILoginParam {
 export default function Login() {
   const { login, user } = useAuth()
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-
-    const username = (e.currentTarget.elements[0] as HTMLInputElement).value
-    const password = (e.currentTarget.elements[1] as HTMLInputElement).value
-
-    login({ username, password })
+  const handleSubmit = (values: ILoginParam ) => {
+    login(values)
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        {user ? user.name : ''}
-      </div>
-      <div>
-        <label htmlFor="">用户名</label>
-        <input type="text" id='username' />
-      </div>
-      <div>
-        <label htmlFor="">密码</label>
-        <input type="password" id='password' />
-      </div>
-      <button>登录</button>
-    </form>
+    <Form
+      labelCol={{ span: 6 }} // label 布局
+      onFinish={handleSubmit}
+    >
+      <Form.Item label='用户名' name={'username'} rules={[{ required: true, message: '请输入用户名' }]}>
+        <Input placeholder='请输入用户名' />
+      </Form.Item>
+      <Form.Item label='密码' name={'password'} rules={[{ required: true, message: '请输入密码' }]}>
+        <Input placeholder='请输入密码' type={'password'}/>
+      </Form.Item>
+      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+        <Button htmlType='submit' type='primary'>登录</Button>
+      </Form.Item>
+    </Form>
   )
 }
 

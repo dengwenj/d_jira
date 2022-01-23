@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { loadServer } from 'my-jira-dev-tool';
+import 'antd/dist/antd.less'
 
 import AppProviders from 'context';
 
