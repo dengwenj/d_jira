@@ -52,3 +52,22 @@ export const useHttp = () => {
     return http(endpoint, { ...config, token: user?.token })
   }
 }
+
+// const a: number = 1
+// // typeof 的作用就是可以吧这个变量的类型提取出来，
+// const b: typeof a = 2
+// console.log(b);
+
+type Person = {
+  name: string
+  age: number
+}
+const dwj: Partial<Person> = { age: 22 } // 把 Person 类型变成可选的
+const zww: Omit<Person, 'name'> = { age: 12 } // 把 Person 类型里面的某些属性删除掉
+
+type Hh<T> = {
+  name: T
+}
+const hh: Hh<string> = {
+  name: 'dwj'
+}

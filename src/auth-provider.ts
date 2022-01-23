@@ -32,5 +32,3 @@ export const handleRegister = async (data: IData) => {
 }
 
 export const loginOut = async () => localStorage.removeItem(__AUTH_PROVIDER_TOKEN__)
-
-export {}
