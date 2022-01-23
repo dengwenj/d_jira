@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import { useMount, useDebounce } from 'utils'
-import { projects, user } from 'api/hh'
+// import { projects, user } from 'api/hh'
 import { useHttp } from 'utils/http'
 import List from './list'
 import Search from './search'

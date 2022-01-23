@@ -1,5 +1,4 @@
 import React from 'react'
-import { Button } from 'antd'
 
 import { useAuth } from 'hooks/useAuth'
 import AuthenticatedApp from 'authenticated-app'

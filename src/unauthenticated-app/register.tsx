@@ -1,7 +1,8 @@
 import React from 'react'
-import { Form, Input, Button } from 'antd'
+import { Form, Input } from 'antd'
 
 import { useAuth } from 'hooks/useAuth'
+import { LongButton } from 'unauthenticated-app'
 
 export interface ILoginParam {
   username: string
@@ -9,7 +10,7 @@ export interface ILoginParam {
 }
 
 export default function Login() {
-  const { register, user } = useAuth()
+  const { register } = useAuth()
 
   const handleSubmit = (values: ILoginParam ) => {
     register(values)
@@ -26,8 +27,8 @@ export default function Login() {
       <Form.Item label='密码' name={'password'} rules={[{ required: true, message: '请输入密码' }]}>
         <Input placeholder='请输入密码' />
       </Form.Item>
-      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-        <Button htmlType='submit' type='primary'>登录</Button>
+      <Form.Item>
+        <LongButton htmlType='submit' type='primary'>登录</LongButton>
       </Form.Item>
     </Form>
   )

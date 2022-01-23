@@ -1,0 +1,14 @@
+html {
+  /* rem em */
+  /* em 相对于父元素的 font-size */
+  /* rem 相对于根元素 html 的 font-size，r 就是 root 的意思 */
+  /* 16 代表浏览器的默认 px， 16 * 62.5% = 10px */
+  /* 1rem === 10px */
+  font-size: 62.5%;
+}
+
+/* viewport height === vh */
+/* 1vh === 1% */
+html body #root .App {
+  min-height: 100vh;
+}
