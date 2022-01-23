@@ -64,10 +64,23 @@ type Person = {
 }
 const dwj: Partial<Person> = { age: 22 } // 把 Person 类型变成可选的
 const zww: Omit<Person, 'name'> = { age: 12 } // 把 Person 类型里面的某些属性删除掉
+type k = keyof Person // k: 'name' | 'age'
+type pp = Pick<Person, 'name'> // 把 Person 里面挑选几个键值组成一个新的类型
+const p: pp = { name: 'ss' }
+type age = Exclude<k, 'name'> // 把 'name' | 'age' 删除掉 name
 
 type Hh<T> = {
   name: T
 }
 const hh: Hh<string> = {
   name: 'dwj'
+}
+
+for (const key in { name: 'gg', age: 2 }) {
+  console.log(key); // name, age
+}
+
+// Partial 的实现
+type Partial<T> = {
+  [P in keyof T]?: T[P] // P 也是泛型
 }
