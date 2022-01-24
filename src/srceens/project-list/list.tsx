@@ -4,7 +4,7 @@ import dayjs from 'dayjs'
 
 import { IUser } from './search'
 
-interface IProject {
+export interface IProject {
   id: string
   name: string
   personId: string
