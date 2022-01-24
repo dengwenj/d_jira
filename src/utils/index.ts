@@ -4,15 +4,13 @@ import { useEffect, useState } from "react"
 const isFalsy = (value: unknown) => value === 0 ? false : !value
 
 // 在一个函数里改变传入的对象是不好的，因为对象是引用类型，这里改变了，其他地方也要改变
-export function clearObject<T>(object: T) {
+export function clearObject(object: { [key: string]: unknown }) {
   const result = { ...object }
 
   Object.keys(result).forEach(key => {
-    // @ts-ignore
     const value = result[key]
-
+ 
     if (isFalsy(value)) {
-      // @ts-ignore
       delete result[key]
     }
   })
@@ -27,7 +25,8 @@ export function clearObject<T>(object: T) {
 export const useMount = (callback: () => void) => {
   useEffect(() => {
     callback()
-  }, [])
+    // eslint-disable-next-line
+  }, []) // 添加了 eslint-disable-next-line 这个就把有些规则关闭掉了
 }
 
 export const useDebounce = <V>(value: V, delay?: number) => {

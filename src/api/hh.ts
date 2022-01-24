@@ -21,7 +21,7 @@ export const register = <T>(data: T) => {
 
 export const projects = <T>(debounce: T) => {
   return request({
-    url: `/projects?${qs.stringify(clearObject(debounce))}`,
+    url: `/projects?${qs.stringify(clearObject({ name: '', password: '' }))}`,
     method: 'GET'
   })
 }

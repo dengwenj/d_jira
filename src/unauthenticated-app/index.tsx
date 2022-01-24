@@ -22,7 +22,7 @@ export default function UnauthenticatedApp() {
         </Title>
         {isRegister ? <Register /> : <Login />} 
         <Divider />
-        <a onClick={() => setIsRegister(!isRegister)}>{isRegister ? '已经有账号了？直接登录' : '还没有账号？立即注册吧'}</a>
+        <Button type='link' onClick={() => setIsRegister(!isRegister)}>{isRegister ? '已经有账号了？直接登录' : '还没有账号？立即注册吧'}</Button>
       </ShadowCard>
     </Container>
   )

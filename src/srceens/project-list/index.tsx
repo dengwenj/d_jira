@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styled from '@emotion/styled'
 
-import { useMount, useDebounce } from 'utils'
+import { useMount, useDebounce, clearObject } from 'utils'
 // import { projects, user } from 'api/hh'
 import { useHttp } from 'utils/http'
 import List from './list'
@@ -23,9 +23,10 @@ export default function Index() {
     // projects(debounce).then((res) => {
     //   setList(res.data)
     // })
-    cline('projects', { data: debounce }).then((res) => {
+    cline('projects', { data: clearObject(debounce) }).then((res) => {
       setList(res)
     })
+    // eslint-disable-next-line
   }, [debounce])
 
   useMount(() => {

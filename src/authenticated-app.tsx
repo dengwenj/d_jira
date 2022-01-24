@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import { Dropdown, Menu } from 'antd'
+import { Button, Dropdown, Menu } from 'antd'
 
 import Index from 'srceens/project-list'
 import { useAuth } from 'hooks/useAuth'
@@ -15,7 +15,7 @@ export default function AuthenticatedApp() {
     return (
       <Menu>
         <Menu.Item key={'loginout'}>
-          <a onClick={loginOut}>登出</a>
+          <Button type='link'  onClick={loginOut}>登出</Button>
         </Menu.Item>
       </Menu>
     )
@@ -32,7 +32,7 @@ export default function AuthenticatedApp() {
           </HeaderLeft>
           <HeaderRight>
             <Dropdown overlay={handleOverlay}>
-              <a onClick={e => e.preventDefault()}>Hi, {user?.name}</a>
+              <Button type='link' onClick={e => e.preventDefault()}>Hi, {user?.name}</Button>
             </Dropdown>
           </HeaderRight>
         </Header>
