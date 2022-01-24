@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react'
-import { Table } from 'antd'  
+import { Table } from 'antd'
+import dayjs from 'dayjs' 
 
 import { IUser } from './search'
 
@@ -9,6 +10,7 @@ interface IProject {
   personId: string
   pin: boolean
   organization: string
+  created: number
 }
 
 interface IList {
@@ -26,6 +28,11 @@ export default function List({ users, list }: IList) {
       sorter: (a: any, b: any) => a.name.localeCompare(b.name)
     },
     {
+      title: '部门',
+      dataIndex: 'organization',
+      key: 'organization',
+    },
+    {
       title: '负责人', 
       key: 'personId',
       dataIndex: 'personId',
@@ -34,6 +41,15 @@ export default function List({ users, list }: IList) {
           { users.find((item) => {
             return value === item.id
           })?.name }
+        </span>
+      }
+    },
+    {
+      title: '创建时间',
+      dataIndex: 'created',
+      render(vlaue: number) {
+        return <span>
+          {vlaue ? dayjs(vlaue).format('YYYY-MM-DD'): '无'}
         </span>
       }
     }

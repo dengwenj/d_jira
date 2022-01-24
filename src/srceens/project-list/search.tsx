@@ -1,4 +1,5 @@
 import React from 'react'
+import { Form, Input, Select } from 'antd'
 
 export interface IUser {
   id: string,
@@ -34,14 +35,23 @@ export default function Search({ users, param, setParam }: ISearch) {
   }
 
   return (
-    <>
-      <form>
-        <input type="text" value={param.name} onChange={handleChangeParamInput}/>
-        <select onChange={handleChangeParamSelect}>
-          <option value="">负责人</option>
-          {users.map(item => <option key={item.id} value={item.id}>{item.name}</option>)}
-        </select>
-      </form>
-    </>
+    <Form style={{ marginBottom: '2rem' }} layout='inline'>
+      <Form.Item>
+        <Input 
+          placeholder='项目名'
+          type="text"
+          value={param.name}
+          onChange={handleChangeParamInput}
+        />
+      </Form.Item>
+  
+      <Form.Item>
+        <Select style={{ width: 100 }} defaultValue="负责人" onChange={handleChangeParamSelect}>
+          {users.map(item => (
+            <Select.Option key={item.id} value={item.id}>{item.name}</Select.Option>
+          ))}
+        </Select>
+      </Form.Item>
+    </Form>
   )
 }

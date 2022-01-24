@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import styled from '@emotion/styled'
 
 import { useMount, useDebounce } from 'utils'
 // import { projects, user } from 'api/hh'
@@ -36,9 +37,14 @@ export default function Index() {
   })
 
   return (
-    <>
+    <Container>
+      <h1>项目列表</h1>
       <Search users={users} param={param} setParam={setParam}/>
       <List users={users} list={list}/>
-    </>
+    </Container>
   )
 }
+
+const Container = styled.div`
+  padding: 3.2rem;
+`
