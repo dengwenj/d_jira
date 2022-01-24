@@ -27,10 +27,10 @@ export default function Search({ users, param, setParam }: ISearch) {
     })
   }
 
-  const handleChangeParamSelect = (e: any) => {
+  const handleChangeParamSelect = (value: any) => {
     setParam({
       ...param,
-      personId: e.target.value
+      personId: value
     })
   }
 
