@@ -14,6 +14,7 @@ export default function Index() {
   })
   const [list, setList] = useState([])
   const [users, setUsers] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
 
   const cline = useHttp()
 
@@ -23,8 +24,11 @@ export default function Index() {
     // projects(debounce).then((res) => {
     //   setList(res.data)
     // })
+    setIsLoading(true)
     cline('projects', { data: clearObject(debounce) }).then((res) => {
       setList(res)
+    }).finally(() => {
+      setIsLoading(false)
     })
     // eslint-disable-next-line
   }, [debounce])
@@ -41,7 +45,7 @@ export default function Index() {
     <Container>
       <h1>项目列表</h1>
       <Search users={users} param={param} setParam={setParam}/>
-      <List users={users} list={list}/>
+      <List loading={isLoading} users={users} dataSource={list}/>
     </Container>
   )
 }
