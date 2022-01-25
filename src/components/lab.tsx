@@ -1,5 +1,7 @@
 import styled from "@emotion/styled"
-
+import { Spin, Typography } from 'antd'
+import { DevTools } from 'my-jira-dev-tool'
+ 
 interface IRow {
   gap?: number | boolean
   between?: boolean
@@ -17,3 +19,23 @@ export const Row = styled.div<IRow>` // div 是一个函数后面写的泛型 di
     margin-right: ${props => typeof props.gap === 'number' ? props.gap + 'rem' : props.gap ? '2rem' : undefined};
   }
 `
+
+export const SpinLoading = () => {
+  return <FullPage>
+    <Spin size='large' />
+  </FullPage>
+}
+const FullPage = styled.div`
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+`
+
+export const FullPageError = ({ error }: { error: Error | null}) => {
+  return <FullPage>
+    <DevTools />
+    <Typography.Text type='danger'>{error?.message}</Typography.Text>
+  </FullPage>
+}

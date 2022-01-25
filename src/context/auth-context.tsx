@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react"
+import React, { createContext } from "react"
 
 import * as auth from 'auth-provider'
 import { ILoginParam } from 'srceens/login'
@@ -6,6 +6,8 @@ import { IUser } from "srceens/project-list/search"
 import { ReactChildren } from './index'
 import { http } from "utils/http"
 import { useMount } from "utils"
+import { useAsync } from "hooks/useAsync"
+import { SpinLoading, FullPageError } from 'components/lab'
 
 interface ContextValue {
   login: (form: ILoginParam) => Promise<void>
@@ -29,13 +31,20 @@ const bootstrapUser = async () => {
 }
 
 export default function AuthProvider({ children }: ReactChildren) {
-  const [user, setUser] = useState<IUser | null>(null)
+  const { data: user, error, isLoading, isError, isIdle, run, setData: setUser } = useAsync<IUser>()
+
 
   useMount(() => {
-    bootstrapUser().then((res) => {
-      setUser(res)
-    })
+    run(bootstrapUser())
   })
+
+  if (isIdle || isLoading) {
+    return  <SpinLoading />
+  }
+
+  if (isError) {
+    return <FullPageError error={error} />
+  }
 
   const login = async (form: ILoginParam) => {
     const res = await auth.handleLogin(form)

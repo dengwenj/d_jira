@@ -27,7 +27,7 @@ export const useAsync = <D>(initState?: State<D>, initConfig?: typeof defaultCon
     ...initState
   })
 
-  const setData = (data: D) => setState({
+  const setData = (data: D | null) => setState({
     error: null,
     data,
     stat: 'success'
@@ -51,10 +51,10 @@ export const useAsync = <D>(initState?: State<D>, initConfig?: typeof defaultCon
       setData(data)
       return data
     }).catch(error => {
-      setState(error)
+      setError(error)
       
       if (config.throwOnError) return Promise.reject(error) 
-      return error 
+      return state 
     })
   }
 
