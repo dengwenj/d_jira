@@ -33,7 +33,6 @@ const bootstrapUser = async () => {
 export default function AuthProvider({ children }: ReactChildren) {
   const { data: user, error, isLoading, isError, isIdle, run, setData: setUser } = useAsync<IUser>()
 
-
   useMount(() => {
     run(bootstrapUser())
   })

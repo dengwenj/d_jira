@@ -17,7 +17,7 @@ export default function AuthenticatedApp() {
         <Menu.Item key={'loginout'}>
           <Button type='link'  onClick={loginOut}>登出</Button>
         </Menu.Item>
-      </Menu>
+      </Menu> 
     )
   }
 
