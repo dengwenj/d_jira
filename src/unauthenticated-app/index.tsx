@@ -7,11 +7,14 @@ import Register from './register'
 import logo from 'assets/logo.svg'
 import left from 'assets/left.svg'
 import right from 'assets/right.svg'
+import useDocumentTitle from 'hooks/useDocumentTitle';
 
 // 非登录的状态
 export default function UnauthenticatedApp() {
   const [isRegister, setIsRegister] = useState(false)
   const [error, setError] = useState<Error | null>(null)
+
+  useDocumentTitle('请登录注册后继续')
 
   return (
     <Container>

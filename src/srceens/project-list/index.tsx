@@ -7,6 +7,7 @@ import Search from './search'
 import { useProjects } from 'hooks/useProject'
 import { Typography } from 'antd'
 import { useUser } from 'hooks/useUser'
+import useDocumentTitle from 'hooks/useDocumentTitle'
 
 
 export default function Index() {
@@ -14,6 +15,8 @@ export default function Index() {
     name: '',
     personId: ''
   })
+
+  useDocumentTitle('项目列表', false)
 
   const debounce = useDebounce(param, 200)
   const { isLoading, error, data: list } = useProjects(debounce)
