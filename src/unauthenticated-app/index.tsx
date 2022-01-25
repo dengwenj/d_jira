@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Divider, Card, Button } from 'antd'
+import { Divider, Card, Button, Typography } from 'antd'
 import styled from '@emotion/styled'
 
 import Login from './login';
@@ -11,6 +11,7 @@ import right from 'assets/right.svg'
 // 非登录的状态
 export default function UnauthenticatedApp() {
   const [isRegister, setIsRegister] = useState(false)
+  const [error, setError] = useState<Error | null>(null)
 
   return (
     <Container>
@@ -20,7 +21,8 @@ export default function UnauthenticatedApp() {
         <Title>
           {isRegister ? '请注册' : '请登录'}
         </Title>
-        {isRegister ? <Register /> : <Login />} 
+        {error ? <Typography.Text type='danger'>{'输入的用户名或密码不正确或没有注册！'}</Typography.Text> : null}
+        {isRegister ? <Register onError={setError} /> : <Login onError={setError} />} 
         <Divider />
         <Button type='link' onClick={() => setIsRegister(!isRegister)}>{isRegister ? '已经有账号了？直接登录' : '还没有账号？立即注册吧'}</Button>
       </ShadowCard>

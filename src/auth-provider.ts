@@ -22,8 +22,17 @@ export const handleUserResponse = ({ user }: User) => {
 }
 
 export const handleLogin = async (data: IData) => {
-  const res = await login(data)
-  return handleUserResponse(res.data)
+  try {
+    const res = await login(data)
+    return handleUserResponse(res.data)
+  } catch (error) {
+    Promise.reject(error).then(() => {}, (res) => {
+      console.log(res.response.data.message);
+    })
+    
+    return Promise.reject(error)
+  }
+  
 }
 
 export const handleRegister = async (data: IData) => {
