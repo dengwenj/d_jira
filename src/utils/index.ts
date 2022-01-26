@@ -63,3 +63,5 @@ export const useArray = <T>(person: T[]) => { // 自动推导
     }
   }
 }
+
+export const resetRoute = () => window.location.href = window.location.origin

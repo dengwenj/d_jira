@@ -1,13 +1,14 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import { Button, Dropdown, Menu } from 'antd'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'
 
 import Index from 'srceens/project-list'
 import { useAuth } from 'hooks/useAuth'
 import { Row } from 'components/lab'
 import { ReactComponent as SoftwareLogo } from 'assets/software-logo.svg'
 import Project from 'srceens/project'
+import { resetRoute } from 'utils'
 
 // 登录的状态
 export default function AuthenticatedApp() {
@@ -20,6 +21,7 @@ export default function AuthenticatedApp() {
             <Routes>
               <Route path="/projects" element={<Index />} />
               <Route path="/projects/:projectId/*" element={<Project />} />
+              <Route path="*" element={<Navigate to={'/projects'}/>}/>
             </Routes>
           </Router>
         </Main>
@@ -44,7 +46,9 @@ const PageHeader = () => {
   return (
     <Header between={true}>
       <HeaderLeft gap={true}>
-        <SoftwareLogo width={'18rem'} color={'rgb(38, 132, 255)'}/>
+        <Button style={{ paddingBottom: 55 }} type='link' onClick={() => resetRoute() }>
+          <SoftwareLogo width={'18rem'} color={'rgb(38, 132, 255)'}/>
+        </Button>
         <h2>项目</h2>
         <h2>用户</h2>
       </HeaderLeft>
