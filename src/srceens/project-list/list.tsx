@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react'
-import { Table, TableProps } from 'antd'
-import dayjs from 'dayjs' 
+import { Table, TableProps, Button } from 'antd'
+import dayjs from 'dayjs'
+import { useNavigate } from 'react-router-dom'
 
 import { IUser } from './search'
 
@@ -30,13 +31,19 @@ const [a, ...b] = [1, 2, 3, 4, 4]
 console.log(b); // 是个数组 [2, 3, 4, 4] */
 
 export default function List({ users, ...props }: IList) { // props 是个对象和上面的示例一样
+  const navigate = useNavigate() // 相当于原来的 useHistory
+
   const columns = useMemo(() => {
     return [
     {
       title: '名称',
       dataIndex: 'name',
       key: 'name',
-      sorter: (a: any, b: any) => a.name.localeCompare(b.name)
+      sorter: (a: any, b: any) => a.name.localeCompare(b.name),
+      render(value: any, row: any, index: any) { // value 当前 字段的数据， row 当前行， index 索引
+        // 这里也可以用 Link 标签 不用 Button 标签 Router-dom 里面的 Link to={}
+        return <Button onClick={() => navigate(`/projects/${row.personId}`)} type='link'>{value}</Button>
+      }
     },
     {
       title: '部门',

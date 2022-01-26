@@ -8,8 +8,8 @@ const useDocumentTitle = (title: string, keepOnUnmount = true) => {
     document.title = title
   }, [title])
 
-  useEffect(() => {
-    return () => {
+  useEffect(() => {  
+    return () => { // 在定义的时候父级作用域就确定了
       if (!keepOnUnmount) {
         // 如果不指定依赖，读到的就是旧 title, 也可以用 useRef
         document.title = oldtitle
