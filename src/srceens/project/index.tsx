@@ -3,8 +3,11 @@ import { Link, Routes, Route, Navigate } from 'react-router-dom'
 
 import KanBan from 'srceens/kanban'
 import Epic from 'srceens/epic'
+import { useUrlQueryParam } from 'hooks/useUrlQueryParam'
 
 export default function Project() {
+  console.log(useUrlQueryParam(['name', 'age', 'sex']));
+  
   return (
     <>
       <h1>Project</h1>
