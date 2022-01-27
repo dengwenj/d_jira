@@ -12,13 +12,11 @@ import { useUrlQueryParam } from 'hooks/useUrlQueryParam'
 
 
 export default function Index() {
-  const [, setParam] = useState({
-    name: '',
-    personId: ''
-  })
-
+  /**
+   * 基本类型可以放在依赖里，组件里的状态可以放在依赖里，非组件状态的对象类型不可以放在依赖里
+   */
   const [key] = useState<('name' | 'personId')[]>(['name', 'personId']) // 防止重复渲染
-  const [param] = useUrlQueryParam(key)
+  const [param, setParam] = useUrlQueryParam(key)
 
   useDocumentTitle('项目列表', false)
 
