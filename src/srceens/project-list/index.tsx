@@ -8,20 +8,24 @@ import { useProjects } from 'hooks/useProject'
 import { Typography } from 'antd'
 import { useUser } from 'hooks/useUser'
 import useDocumentTitle from 'hooks/useDocumentTitle'
+import { useUrlQueryParam } from 'hooks/useUrlQueryParam'
 
 
 export default function Index() {
-  const [param, setParam] = useState({
+  const [, setParam] = useState({
     name: '',
     personId: ''
   })
+
+  const [key] = useState<('name' | 'personId')[]>(['name', 'personId']) // 防止重复渲染
+  const [param] = useUrlQueryParam(key)
 
   useDocumentTitle('项目列表', false)
 
   const debounce = useDebounce(param, 200)
   const { isLoading, error, data: list } = useProjects(debounce)
   const { data: users } = useUser()
-
+ 
   return (
     <Container>
       <h1>项目列表</h1>
@@ -31,6 +35,8 @@ export default function Index() {
     </Container>
   )
 }
+
+Index.whyDidYouRender = true
 
 const Container = styled.div`
   padding: 3.2rem;

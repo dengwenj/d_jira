@@ -3,11 +3,8 @@ import { Link, Routes, Route, Navigate } from 'react-router-dom'
 
 import KanBan from 'srceens/kanban'
 import Epic from 'srceens/epic'
-import { useUrlQueryParam } from 'hooks/useUrlQueryParam'
 
 export default function Project() {
-  console.log(useUrlQueryParam(['name', 'age', 'sex']));
-  
   return (
     <>
       <h1>Project</h1>
@@ -15,12 +12,12 @@ export default function Project() {
       <Link to={'kanban'}>看板</Link> 
       <Link to={'epic'}>任务组</Link>
       <Routes>
-        <Route path={'/kanban'} element={<KanBan />} />
-        <Route path={'/epic'} element={<Epic />} />
+        {/* /kanban , /epic 可以写也可以不写，例如 第一个写 第二个不写 一样可以 */}
+        <Route path={'/kanban'} element={<KanBan />} /> 
+        <Route path={'epic'} element={<Epic />} />
         {/* 重定向 */}
-        <Route path='*' element={ <Navigate to={window.location.pathname + '/kanban'}/> }/> 
+        <Route path='*' element={<Navigate to={window.location.pathname + '/kanban'} />}/> 
       </Routes>
-      
     </>
   )
 }
