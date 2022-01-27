@@ -24,3 +24,30 @@ export const useUrlQueryParam = <K extends string>(key: K[]) => {
     }
   ] as const // 字面量推理，变成固定的类型了
 }
+
+
+
+
+/**
+ * function Children(){
+      const [searchParams,setSearchParams]= useSearchParams();
+      const changeSearchParams=()=>{
+        setSearchParams({
+            user:"郭芙蓉",
+            skill:"排山倒海"
+        })
+        // 执行完之后 url=/detail?user=郭芙蓉&skill=排山倒海
+        // 页面展示相关信息
+      }
+      return (
+        <div>
+          <div>
+              姓名 ：{searchParams.get("user")}
+              技能 ：{searchParams.get("skill")}
+          </div>
+          <button onClick={changeSearchParams}>修改</button>
+        </div>
+      )
+    }
+ */
+
