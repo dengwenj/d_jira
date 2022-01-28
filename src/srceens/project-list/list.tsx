@@ -6,9 +6,9 @@ import { useNavigate } from 'react-router-dom'
 import { IUser } from './search'
 
 export interface IProject {
-  id: string
+  id: number
   name: string
-  personId: string
+  personId: number
   pin: boolean
   organization: string
   created: number

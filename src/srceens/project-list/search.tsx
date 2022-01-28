@@ -1,8 +1,10 @@
 import React from 'react'
 import { Form, Input, Select } from 'antd'
+import { IProject } from './list'
+import UserSelect from 'components/use-select'
 
 export interface IUser {
-  id: string,
+  id: number ,
   name: string,
   email: string,
   title: string,
@@ -12,10 +14,7 @@ export interface IUser {
 
 interface ISearch {
   users: IUser[],
-  param: {
-    name: string,
-    personId: string
-  },
+  param: Partial<Pick<IProject, 'name' | 'personId'>>
   setParam: (param: ISearch['param']) => void
 }
 
@@ -46,11 +45,12 @@ export default function Search({ users, param, setParam }: ISearch) {
       </Form.Item>
   
       <Form.Item>
-        <Select style={{ width: 100 }} defaultValue="负责人" onChange={handleChangeParamSelect}>
-          {users.map(item => (
-            <Select.Option key={item.id} value={item.id}>{item.name}</Select.Option>
-          ))}
-        </Select>
+        <UserSelect
+          value={param.personId}
+          onChange={handleChangeParamSelect}
+          defaultOptionName='负责人'
+        />
+        {/*   */}
       </Form.Item>
     </Form>
   )

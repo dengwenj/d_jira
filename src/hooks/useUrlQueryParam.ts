@@ -17,7 +17,7 @@ export const useUrlQueryParam = <K extends string>(key: K[]) => {
       }, {} as { [k in K]: string })
     }, [searchParams, key]),
     //  Object.fromEntries() 方法把键值对列表转换为一个对象。 Object.fromEntries() 执行与 Object.entries 互逆的操作。
-    (params: {[k in K]: unknown}) => {
+    (params: Partial<{ [key in K]: unknown }>) => {
       // setSearchParams
       const o = clearObject({ ...Object.fromEntries(searchParams), ...params }) as URLSearchParamsInit
       setSearchParams(o)
