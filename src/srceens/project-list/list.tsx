@@ -14,7 +14,8 @@ export interface IProject {
   created: number
 }
 
-interface IList extends TableProps<IProject> { // 继承的，TableProps<IProject> 里面的属性如果不是可选的那么 IList 必须要写，是可选的可以不写 
+// 继承的，TableProps<IProject> 里面的属性如果不是可选的那么 IList 必须要写，是可选的可以不写 
+interface IList extends TableProps<IProject> {
   users: IUser[]
 }
 
