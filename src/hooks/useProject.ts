@@ -8,8 +8,12 @@ export const useProjects = (params?: Partial<IProject>) => {
   const client = useHttp()
   const { run, ...result } = useAsync<IProject[]>()
 
+  const fetchProject = () => client('projects', { data: clearObject(params || {}) })
+
   useEffect(() => {
-    run(client('projects', { data: clearObject(params || {}) }))
+    run(fetchProject(), {
+      retry: fetchProject
+    })
     // eslint-disable-next-line
   }, [params])
 
