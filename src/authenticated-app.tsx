@@ -31,6 +31,23 @@ export default function AuthenticatedApp() {
 }
 
 const PageHeader = () => {
+  return (
+    <Header between={true}>
+      <HeaderLeft gap={true}>
+        <Button style={{ paddingBottom: 55 }} type='link' onClick={() => resetRoute() }>
+          <SoftwareLogo width={'18rem'} color={'rgb(38, 132, 255)'}/>
+        </Button>
+        <h2>项目</h2>
+        <h2>用户</h2>
+      </HeaderLeft>
+      <HeaderRight>
+        <User />
+      </HeaderRight>
+    </Header>
+  )
+}
+
+const User = () => {
   const { loginOut, user } = useAuth()
 
   const handleOverlay = () => {
@@ -44,20 +61,9 @@ const PageHeader = () => {
   }
 
   return (
-    <Header between={true}>
-      <HeaderLeft gap={true}>
-        <Button style={{ paddingBottom: 55 }} type='link' onClick={() => resetRoute() }>
-          <SoftwareLogo width={'18rem'} color={'rgb(38, 132, 255)'}/>
-        </Button>
-        <h2>项目</h2>
-        <h2>用户</h2>
-      </HeaderLeft>
-      <HeaderRight>
-        <Dropdown overlay={handleOverlay}>
-          <Button type='link' onClick={e => e.preventDefault()}>Hi, {user?.name}</Button>
-        </Dropdown>
-      </HeaderRight>
-    </Header>
+    <Dropdown overlay={handleOverlay}>
+      <Button type='link' onClick={e => e.preventDefault()}>Hi, {user?.name}</Button>
+    </Dropdown>
   )
 }
 
