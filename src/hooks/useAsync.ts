@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useMountedRef } from "./useMountedRef"
 
 interface State<D> {
   error: Error | null
@@ -26,6 +27,8 @@ export const useAsync = <D>(initState?: State<D>, initConfig?: typeof defaultCon
     ...defaultInitState,
     ...initState
   })
+
+  const mountedRef = useMountedRef()
 
   const  [retry, setRetry] = useState(() => () => {})
 
@@ -55,8 +58,10 @@ export const useAsync = <D>(initState?: State<D>, initConfig?: typeof defaultCon
 
     setState({ ...state, stat: 'loading' })
 
-    return  promise.then(data => { // 这里的 data 就是 D 这个 泛型内容
-      setData(data)
+    return  promise.then(data => { // 这里的 data 就是 D 这个 泛型内容 
+      if (mountedRef.current) {
+        setData(data)
+      }
       return data
     }).catch(error => {
       setError(error)
