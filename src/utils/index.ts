@@ -18,10 +18,10 @@ export function clearObject(object: { [key: string]: unknown }) {
   return result
 }
 
-/* 
-  自定义 Hook
-      useMount、useDebounce
-*/
+/**
+ * 自定义 Hook 
+ *    useMount、useDebounce
+ */
 export const useMount = (callback: () => void) => {
   useEffect(() => {
     callback()

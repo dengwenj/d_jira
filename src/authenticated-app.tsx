@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from '@emotion/styled'
 import { Button, Dropdown, Menu } from 'antd'
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'
@@ -9,9 +9,13 @@ import { Row } from 'components/lab'
 import { ReactComponent as SoftwareLogo } from 'assets/software-logo.svg'
 import Project from 'srceens/project'
 import { resetRoute } from 'utils'
+import ProjectModal from 'srceens/project-list/project-modal'
+import ProjectPopover from 'components/project-popover'
 
 // 登录的状态
 export default function AuthenticatedApp() {
+  const [projectmodalOpen, setProjectModalOpen] = useState(false)
+
   return (
     <>
       <Container>
@@ -25,6 +29,7 @@ export default function AuthenticatedApp() {
             </Routes>
           </Router>
         </Main>
+        <ProjectModal projectmodalOpen={projectmodalOpen} onClose={() => setProjectModalOpen(false)} />
       </Container>
     </>
   )
@@ -37,8 +42,8 @@ const PageHeader = () => {
         <Button style={{ paddingBottom: 55 }} type='link' onClick={() => resetRoute() }>
           <SoftwareLogo width={'18rem'} color={'rgb(38, 132, 255)'}/>
         </Button>
-        <h2>项目</h2>
-        <h2>用户</h2>
+        <ProjectPopover />
+        <span>用户</span>
       </HeaderLeft>
       <HeaderRight>
         <User />
