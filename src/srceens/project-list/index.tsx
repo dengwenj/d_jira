@@ -9,9 +9,11 @@ import { Typography } from 'antd'
 import { useUser } from 'hooks/useUser'
 import useDocumentTitle from 'hooks/useDocumentTitle' 
 import { useProjectsSearchParams } from './utils'
+import { ButtonNoPadding } from 'components/lab'
+import useProjectModal from 'hooks/useProjectModal'
 
 
-export default function Index({ projectButton }: { projectButton: JSX.Element }) {
+export default function Index() {
   /**
    * 基本类型可以放在依赖里，组件里的状态可以放在依赖里，非组件状态的对象类型不可以放在依赖里
    */
@@ -20,16 +22,19 @@ export default function Index({ projectButton }: { projectButton: JSX.Element })
   const [param, setParam] = useProjectsSearchParams()
   const { isLoading, error, data: list, retry } = useProjects(useDebounce(param, 200))
   const { data: users } = useUser()
+  const { open } = useProjectModal()
  
   return (
     <Container>
       <HeaderInfo>
         <h1>项目列表</h1>
-        {projectButton}
+        <ButtonNoPadding type='link' onClick={open}>
+          创建项目
+        </ButtonNoPadding>
       </HeaderInfo>
       <Search users={users || []} param={param} setParam={setParam}/>
       {error ? <Typography.Text type='danger'>{error.message}</Typography.Text> : null}
-      <List projectButton={projectButton} refresh={retry} loading={isLoading} users={users || []} dataSource={list || []}/>
+      <List refresh={retry} loading={isLoading} users={users || []} dataSource={list || []}/>
     </Container>
   )
 }

@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom'
 import { IUser } from './search'
 import Pin from 'components/pin'
 import { useEditProject } from 'hooks/useEditProject'
+import { ButtonNoPadding } from 'components/lab'
+import useProjectModal from 'hooks/useProjectModal'
 
 export interface IProject {
   id: number
@@ -20,7 +22,6 @@ export interface IProject {
 interface IList extends TableProps<IProject> {
   users: IUser[]
   refresh?(): void
-  projectButton: JSX.Element
 }
 
 // 示例 以后如果碰到有对象要里面的其中一些属性可以这样
@@ -35,9 +36,10 @@ console.log(props); // 是个对象 {age: 13, dd: 11, aaaaaa: 1111}
 const [a, ...b] = [1, 2, 3, 4, 4]
 console.log(b); // 是个数组 [2, 3, 4, 4] */
 
-export default function List({ projectButton, users, ...props }: IList) { // props 是个对象和上面的示例一样
+export default function List({ users, ...props }: IList) { // props 是个对象和上面的示例一样
   const navigate = useNavigate() // 相当于原来的 useHistory
   const { mutate } = useEditProject()
+  const { open } = useProjectModal()
 
   const pinProject = (id: number) => {
     return (pin: boolean) => {
@@ -95,7 +97,9 @@ export default function List({ projectButton, users, ...props }: IList) { // pro
           return (
             <Dropdown overlay={<Menu>
               <Menu.Item key={'edit'}>
-                {projectButton}
+                <ButtonNoPadding type='link' onClick={open}>
+                  编辑
+                </ButtonNoPadding>
               </Menu.Item>
             </Menu>}>
               <div style={{ cursor: 'pointer' }}>...</div>

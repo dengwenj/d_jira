@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from '@emotion/styled'
 import { Button, Dropdown, Menu } from 'antd'
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'
@@ -11,41 +11,38 @@ import Project from 'srceens/project'
 import { resetRoute } from 'utils'
 import ProjectModal from 'srceens/project-list/project-modal'
 import ProjectPopover from 'components/project-popover'
-import { ButtonNoPadding } from 'components/lab'
+import useProjectModal from 'hooks/useProjectModal'
 
 // 登录的状态
 export default function AuthenticatedApp() {
-  const [projectmodalOpen, setProjectModalOpen] = useState(false)
 
   return (
     <>
       <Container>
-        <PageHeader 
-          projectButton={<ButtonNoPadding type='link' onClick={() => setProjectModalOpen(true)}>创建项目</ButtonNoPadding>} 
-        />
-        <Main>
-          <Router>
+        <Router>
+          <PageHeader />
+          <Main>
             <Routes>
-              <Route path="/projects" element={<Index projectButton={<ButtonNoPadding type='link' onClick={() => setProjectModalOpen(true)}>创建项目</ButtonNoPadding>}  />} />
+              <Route path="/projects" element={<Index />} />
               <Route path="/projects/:projectId/*" element={<Project />} />
               <Route path="*" element={<Navigate to={'/projects'}/>}/>
             </Routes>
-          </Router>
-        </Main>
-        <ProjectModal projectmodalOpen={projectmodalOpen} onClose={() => setProjectModalOpen(false)} />
+          </Main>
+          <ProjectModal />
+        </Router>
       </Container>
     </>
   )
 }
 
-const PageHeader = ({ projectButton }: { projectButton: JSX.Element }) => {
+const PageHeader = () => {
   return (
     <Header between={true}>
       <HeaderLeft gap={true}>
         <Button style={{ paddingBottom: 55 }} type='link' onClick={() => resetRoute() }>
           <SoftwareLogo width={'18rem'} color={'rgb(38, 132, 255)'}/>
         </Button>
-        <ProjectPopover projectButton={projectButton}/>
+        <ProjectPopover/>
         <span>用户</span>
       </HeaderLeft> 
       <HeaderRight>
