@@ -1,14 +1,13 @@
 import React from 'react'
 import { Popover, Typography, List, Divider } from 'antd'
+import { useDispatch } from 'react-redux'
 
 import { useProjects } from 'hooks/useProject'
 import { ButtonNoPadding } from './lab'
+import { projectListActions } from 'srceens/project-list/project-list-slice'
 
-interface IProjectPopover {
-  projectButton: JSX.Element
-}
-
-export default function ProjectPopover({ projectButton }: IProjectPopover) {
+export default function ProjectPopover() {
+  const dispatch = useDispatch()
   const { data: projects } = useProjects()
   const pinnedProjects = projects?.filter((project) => project.pin)
 
@@ -21,13 +20,15 @@ export default function ProjectPopover({ projectButton }: IProjectPopover) {
             return (
               <List.Item>
                 <List.Item.Meta title={project.name} />
-              </List.Item>
+              </List.Item> 
             )
           })
         }
       </List>
       <Divider />
-      {projectButton}
+      <ButtonNoPadding onClick={() => dispatch(projectListActions.openProjectModal())} type='link'>
+        创建项目
+      </ButtonNoPadding>
     </div>
   )
   

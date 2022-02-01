@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import { useDispatch } from 'react-redux'
 
 import { useDebounce } from 'utils'
 import List from './list'
@@ -9,7 +10,8 @@ import { Typography } from 'antd'
 import { useUser } from 'hooks/useUser'
 import useDocumentTitle from 'hooks/useDocumentTitle' 
 import { useProjectsSearchParams } from './utils'
-
+import { ButtonNoPadding } from 'components/lab'
+import { projectListActions } from './project-list-slice'
 
 export default function Index({ projectButton }: { projectButton: JSX.Element }) {
   /**
@@ -20,12 +22,15 @@ export default function Index({ projectButton }: { projectButton: JSX.Element })
   const [param, setParam] = useProjectsSearchParams()
   const { isLoading, error, data: list, retry } = useProjects(useDebounce(param, 200))
   const { data: users } = useUser()
+  const dispatch = useDispatch()
  
   return (
     <Container>
       <HeaderInfo>
         <h1>项目列表</h1>
-        {projectButton}
+        <ButtonNoPadding onClick={() => dispatch(projectListActions.openProjectModal())} type='link'>
+          创建项目
+        </ButtonNoPadding>
       </HeaderInfo>
       <Search users={users || []} param={param} setParam={setParam}/>
       {error ? <Typography.Text type='danger'>{error.message}</Typography.Text> : null}

@@ -2,10 +2,13 @@ import React, { useMemo } from 'react'
 import { Table, TableProps, Button, Dropdown, Menu } from 'antd'
 import dayjs from 'dayjs'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
 import { IUser } from './search'
 import Pin from 'components/pin'
 import { useEditProject } from 'hooks/useEditProject'
+import { ButtonNoPadding } from 'components/lab'
+import { projectListActions } from './project-list-slice'
 
 export interface IProject {
   id: number
@@ -35,9 +38,10 @@ console.log(props); // 是个对象 {age: 13, dd: 11, aaaaaa: 1111}
 const [a, ...b] = [1, 2, 3, 4, 4]
 console.log(b); // 是个数组 [2, 3, 4, 4] */
 
-export default function List({ projectButton, users, ...props }: IList) { // props 是个对象和上面的示例一样
+export default function List({ users, ...props }: IList) { // props 是个对象和上面的示例一样
   const navigate = useNavigate() // 相当于原来的 useHistory
   const { mutate } = useEditProject()
+  const dispatch = useDispatch()
 
   const pinProject = (id: number) => {
     return (pin: boolean) => {
@@ -95,7 +99,7 @@ export default function List({ projectButton, users, ...props }: IList) { // pro
           return (
             <Dropdown overlay={<Menu>
               <Menu.Item key={'edit'}>
-                {projectButton}
+                <ButtonNoPadding onClick={() => dispatch(projectListActions.openProjectModal())} type='link'>编辑</ButtonNoPadding>
               </Menu.Item>
             </Menu>}>
               <div style={{ cursor: 'pointer' }}>...</div>

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import styled from '@emotion/styled'
 import { Button, Dropdown, Menu } from 'antd'
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
 import Index from 'srceens/project-list'
 import { useAuth } from 'hooks/useAuth'
@@ -12,40 +13,39 @@ import { resetRoute } from 'utils'
 import ProjectModal from 'srceens/project-list/project-modal'
 import ProjectPopover from 'components/project-popover'
 import { ButtonNoPadding } from 'components/lab'
+import { projectListActions } from 'srceens/project-list/project-list-slice'
 
 // 登录的状态
-export default function AuthenticatedApp() {
-  const [projectmodalOpen, setProjectModalOpen] = useState(false)
+export default function AuthenticatedApp() { 
+  const dispatch = useDispatch()
 
   return (
     <>
       <Container>
-        <PageHeader 
-          projectButton={<ButtonNoPadding type='link' onClick={() => setProjectModalOpen(true)}>创建项目</ButtonNoPadding>} 
-        />
+        <PageHeader  />
         <Main>
           <Router>
             <Routes>
-              <Route path="/projects" element={<Index projectButton={<ButtonNoPadding type='link' onClick={() => setProjectModalOpen(true)}>创建项目</ButtonNoPadding>}  />} />
+              <Route path="/projects" element={<Index projectButton={<ButtonNoPadding type='link' onClick={() => dispatch(projectListActions.openProjectModal())}>创建项目</ButtonNoPadding>}  />} />
               <Route path="/projects/:projectId/*" element={<Project />} />
               <Route path="*" element={<Navigate to={'/projects'}/>}/>
             </Routes>
           </Router>
         </Main>
-        <ProjectModal projectmodalOpen={projectmodalOpen} onClose={() => setProjectModalOpen(false)} />
+        <ProjectModal />
       </Container>
     </>
   )
 }
 
-const PageHeader = ({ projectButton }: { projectButton: JSX.Element }) => {
+const PageHeader = () => {
   return (
     <Header between={true}>
       <HeaderLeft gap={true}>
         <Button style={{ paddingBottom: 55 }} type='link' onClick={() => resetRoute() }>
           <SoftwareLogo width={'18rem'} color={'rgb(38, 132, 255)'}/>
         </Button>
-        <ProjectPopover projectButton={projectButton}/>
+        <ProjectPopover  />
         <span>用户</span>
       </HeaderLeft> 
       <HeaderRight>
