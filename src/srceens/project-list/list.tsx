@@ -21,7 +21,7 @@ export interface IProject {
 interface IList extends TableProps<IProject> {
   users: IUser[]
   refresh?(): void
-  setProjectModalOpen: (isOpen: boolean) => void
+  projectButton: JSX.Element
 }
 
 // 示例 以后如果碰到有对象要里面的其中一些属性可以这样
@@ -36,7 +36,7 @@ console.log(props); // 是个对象 {age: 13, dd: 11, aaaaaa: 1111}
 const [a, ...b] = [1, 2, 3, 4, 4]
 console.log(b); // 是个数组 [2, 3, 4, 4] */
 
-export default function List({ setProjectModalOpen, users, ...props }: IList) { // props 是个对象和上面的示例一样
+export default function List({ projectButton, users, ...props }: IList) { // props 是个对象和上面的示例一样
   const navigate = useNavigate() // 相当于原来的 useHistory
   const { mutate } = useEditProject()
 
@@ -96,7 +96,7 @@ export default function List({ setProjectModalOpen, users, ...props }: IList) { 
           return (
             <Dropdown overlay={<Menu>
               <Menu.Item key={'edit'}>
-                <ButtonNoPadding type='link' onClick={() => setProjectModalOpen(true)}>编辑</ButtonNoPadding>
+                {projectButton}
               </Menu.Item>
             </Menu>}>
               <div style={{ cursor: 'pointer' }}>...</div>

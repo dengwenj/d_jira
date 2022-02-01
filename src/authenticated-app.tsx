@@ -11,6 +11,7 @@ import Project from 'srceens/project'
 import { resetRoute } from 'utils'
 import ProjectModal from 'srceens/project-list/project-modal'
 import ProjectPopover from 'components/project-popover'
+import { ButtonNoPadding } from 'components/lab'
 
 // 登录的状态
 export default function AuthenticatedApp() {
@@ -19,11 +20,13 @@ export default function AuthenticatedApp() {
   return (
     <>
       <Container>
-        <PageHeader setProjectModalOpen={setProjectModalOpen} />
+        <PageHeader 
+          projectButton={<ButtonNoPadding type='link' onClick={() => setProjectModalOpen(true)}>创建项目</ButtonNoPadding>} 
+        />
         <Main>
           <Router>
             <Routes>
-              <Route path="/projects" element={<Index setProjectModalOpen={setProjectModalOpen} />} />
+              <Route path="/projects" element={<Index projectButton={<ButtonNoPadding type='link' onClick={() => setProjectModalOpen(true)}>创建项目</ButtonNoPadding>}  />} />
               <Route path="/projects/:projectId/*" element={<Project />} />
               <Route path="*" element={<Navigate to={'/projects'}/>}/>
             </Routes>
@@ -35,16 +38,16 @@ export default function AuthenticatedApp() {
   )
 }
 
-const PageHeader = ({ setProjectModalOpen }: { setProjectModalOpen: (visible: boolean) => void }) => {
+const PageHeader = ({ projectButton }: { projectButton: JSX.Element }) => {
   return (
     <Header between={true}>
       <HeaderLeft gap={true}>
         <Button style={{ paddingBottom: 55 }} type='link' onClick={() => resetRoute() }>
           <SoftwareLogo width={'18rem'} color={'rgb(38, 132, 255)'}/>
         </Button>
-        <ProjectPopover onClose={() => setProjectModalOpen(true)}/>
+        <ProjectPopover projectButton={projectButton}/>
         <span>用户</span>
-      </HeaderLeft>
+      </HeaderLeft> 
       <HeaderRight>
         <User />
       </HeaderRight>

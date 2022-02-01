@@ -5,10 +5,10 @@ import { useProjects } from 'hooks/useProject'
 import { ButtonNoPadding } from './lab'
 
 interface IProjectPopover {
-  onClose: () => void
+  projectButton: JSX.Element
 }
 
-export default function ProjectPopover({ onClose }: IProjectPopover) {
+export default function ProjectPopover({ projectButton }: IProjectPopover) {
   const { data: projects, isLoading } = useProjects()
   const pinnedProjects = projects?.filter((project) => project.pin)
 
@@ -27,7 +27,7 @@ export default function ProjectPopover({ onClose }: IProjectPopover) {
         }
       </List>
       <Divider />
-      <ButtonNoPadding type='link' onClick={onClose}>创建项目</ButtonNoPadding>
+      {projectButton}
     </div>
   )
   

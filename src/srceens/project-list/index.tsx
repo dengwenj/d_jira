@@ -11,7 +11,7 @@ import useDocumentTitle from 'hooks/useDocumentTitle'
 import { useProjectsSearchParams } from './utils'
 
 
-export default function Index({ setProjectModalOpen }: { setProjectModalOpen: (isOpen: boolean) => void }) {
+export default function Index({ projectButton }: { projectButton: JSX.Element }) {
   /**
    * 基本类型可以放在依赖里，组件里的状态可以放在依赖里，非组件状态的对象类型不可以放在依赖里
    */
@@ -25,11 +25,11 @@ export default function Index({ setProjectModalOpen }: { setProjectModalOpen: (i
     <Container>
       <HeaderInfo>
         <h1>项目列表</h1>
-        <Button type='link' onClick={() => setProjectModalOpen(true)}>创建项目</Button>
+        {projectButton}
       </HeaderInfo>
       <Search users={users || []} param={param} setParam={setParam}/>
       {error ? <Typography.Text type='danger'>{error.message}</Typography.Text> : null}
-      <List setProjectModalOpen={setProjectModalOpen} refresh={retry} loading={isLoading} users={users || []} dataSource={list || []}/>
+      <List projectButton={projectButton} refresh={retry} loading={isLoading} users={users || []} dataSource={list || []}/>
     </Container>
   )
 }
@@ -42,5 +42,5 @@ const Container = styled.div`
 
 const HeaderInfo = styled.div`
   display: flex;
-  justify-content: space-  ;
+  justify-content: space-between;
 `
