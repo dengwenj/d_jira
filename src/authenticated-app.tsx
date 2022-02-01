@@ -19,11 +19,11 @@ export default function AuthenticatedApp() {
   return (
     <>
       <Container>
-        <PageHeader />
+        <PageHeader setProjectModalOpen={setProjectModalOpen} />
         <Main>
           <Router>
             <Routes>
-              <Route path="/projects" element={<Index />} />
+              <Route path="/projects" element={<Index setProjectModalOpen={setProjectModalOpen} />} />
               <Route path="/projects/:projectId/*" element={<Project />} />
               <Route path="*" element={<Navigate to={'/projects'}/>}/>
             </Routes>
@@ -35,14 +35,14 @@ export default function AuthenticatedApp() {
   )
 }
 
-const PageHeader = () => {
+const PageHeader = ({ setProjectModalOpen }: { setProjectModalOpen: (visible: boolean) => void }) => {
   return (
     <Header between={true}>
       <HeaderLeft gap={true}>
         <Button style={{ paddingBottom: 55 }} type='link' onClick={() => resetRoute() }>
           <SoftwareLogo width={'18rem'} color={'rgb(38, 132, 255)'}/>
         </Button>
-        <ProjectPopover />
+        <ProjectPopover onClose={() => setProjectModalOpen(true)}/>
         <span>用户</span>
       </HeaderLeft>
       <HeaderRight>

@@ -1,9 +1,14 @@
 import React from 'react'
-import { Popover, Typography, List } from 'antd'
+import { Popover, Typography, List, Divider } from 'antd'
 
 import { useProjects } from 'hooks/useProject'
+import { ButtonNoPadding } from './lab'
 
-export default function ProjectPopover() {
+interface IProjectPopover {
+  onClose: () => void
+}
+
+export default function ProjectPopover({ onClose }: IProjectPopover) {
   const { data: projects, isLoading } = useProjects()
   const pinnedProjects = projects?.filter((project) => project.pin)
 
@@ -21,9 +26,11 @@ export default function ProjectPopover() {
           })
         }
       </List>
+      <Divider />
+      <ButtonNoPadding type='link' onClick={onClose}>创建项目</ButtonNoPadding>
     </div>
   )
-
+  
   return (
     <Popover placement='bottom' content={content}>
       <span>项目</span>
