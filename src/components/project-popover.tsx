@@ -9,7 +9,7 @@ interface IProjectPopover {
 }
 
 export default function ProjectPopover({ projectButton }: IProjectPopover) {
-  const { data: projects, isLoading } = useProjects()
+  const { data: projects } = useProjects()
   const pinnedProjects = projects?.filter((project) => project.pin)
 
   const content = (

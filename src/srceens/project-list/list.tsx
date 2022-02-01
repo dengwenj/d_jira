@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom'
 import { IUser } from './search'
 import Pin from 'components/pin'
 import { useEditProject } from 'hooks/useEditProject'
-import { ButtonNoPadding } from 'components/lab'
 
 export interface IProject {
   id: number

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Input, Select } from 'antd'
+import { Form, Input } from 'antd'
 import { IProject } from './list'
 import UserSelect from 'components/use-select'
 
