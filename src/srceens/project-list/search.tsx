@@ -1,16 +1,8 @@
 import React from 'react'
 import { Form, Input } from 'antd'
-import { IProject } from './list'
+import { IProject } from 'types/project'
 import UserSelect from 'components/use-select'
-
-export interface IUser {
-  id: number ,
-  name: string,
-  email: string,
-  title: string,
-  organization: string
-  token: string
-}
+import { IUser } from 'types/user'
 
 interface ISearch {
   users: IUser[],

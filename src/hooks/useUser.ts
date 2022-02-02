@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { IUser } from "srceens/project-list/search";
+import { IUser } from "types/user";
 import { clearObject } from "utils";
 import { useHttp } from "utils/http";
 import { useAsync } from "./useAsync";

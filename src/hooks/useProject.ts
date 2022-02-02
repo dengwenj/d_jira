@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { useQuery } from 'react-query'
 
-import { IProject } from "srceens/project-list/list"
+import { IProject } from "types/project"
 import { clearObject } from "utils"
 import { useHttp } from "utils/http"
 import { useAsync } from "./useAsync"

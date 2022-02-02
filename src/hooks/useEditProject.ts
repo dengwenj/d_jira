@@ -1,6 +1,6 @@
 import { useQueryClient, useMutation, useQuery } from 'react-query'
 
-import { IProject } from "srceens/project-list/list"
+import { IProject } from 'types/project'
 import { useHttp } from "utils/http"
 import { useProjectsSearchParams } from 'srceens/project-list/utils'
 

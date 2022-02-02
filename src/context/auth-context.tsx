@@ -2,7 +2,7 @@ import React, { createContext } from "react"
 
 import * as auth from 'auth-provider'
 import { ILoginParam } from 'srceens/login'
-import { IUser } from "srceens/project-list/search"
+import { IUser } from "types/user"
 import { ReactChildren } from './index'
 import { http } from "utils/http"
 import { useMount } from "utils"

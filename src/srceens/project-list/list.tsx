@@ -1,24 +1,15 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo } from 'react'
 import { Table, TableProps, Button, Dropdown, Menu, Modal } from 'antd'
 import dayjs from 'dayjs'
 import { useNavigate } from 'react-router-dom'
 
-import { IUser } from './search'
+import { IUser } from 'types/user'
 import Pin from 'components/pin'
 import { useEditProject } from 'hooks/useEditProject'
-import { ButtonNoPadding } from 'components/lab'
 import useProjectModal from 'hooks/useProjectModal'
+import { IProject } from 'types/project'
 
 const { confirm } = Modal
-
-export interface IProject {
-  id: number
-  name: string
-  personId: number
-  pin: boolean
-  organization: string
-  created: number
-}
 
 // 继承的，TableProps<IProject> 里面的属性如果不是可选的那么 IList 必须要写，是可选的可以不写 
 interface IList extends TableProps<IProject> {
@@ -48,7 +39,7 @@ export default function List({ users, ...props }: IList) { // props 是个对象
       mutate({ id, pin  })
     }
   }
-   const editProject = (id: number) => {
+  const editProject = (id: number) => {
     return () => {
       startEdit(id)
     }

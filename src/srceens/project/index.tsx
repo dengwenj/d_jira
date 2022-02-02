@@ -16,7 +16,7 @@ export default function Project() {
         <Route path={'/kanban'} element={<KanBan />} /> 
         <Route path={'epic'} element={<Epic />} />
         {/* 重定向 */}
-        <Route path='*' element={<Navigate to={window.location.pathname + '/kanban'} />}/> 
+        <Route path='*' element={<Navigate to={window.location.pathname + '/kanban'} replace />}/> 
       </Routes>
     </>
   )

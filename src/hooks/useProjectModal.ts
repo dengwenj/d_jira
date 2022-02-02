@@ -10,6 +10,7 @@ const useProjectModal = () => {
   const close = () => {
     setProjectModalOpen({ projectCreate: undefined })
     setEditingProjectId({ editingProjectId: undefined })
+    // setUrlParams
   }
   const startEdit = (id: number) => setEditingProjectId({ editingProjectId: id })
 

@@ -1,4 +1,4 @@
-import { IUser } from "srceens/project-list/search"
+import { IUser } from "types/user"
 import { login, register } from 'api/hh';
 
 const __AUTH_PROVIDER_TOKEN__ = '__auth_provider_token__'
