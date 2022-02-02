@@ -1,18 +1,34 @@
-import { useQueryClient, useMutation, useQuery } from 'react-query' 
+import { useQueryClient, useMutation, useQuery } from 'react-query'
 
 import { IProject } from "srceens/project-list/list"
 import { useHttp } from "utils/http"
+import { useProjectsSearchParams } from 'srceens/project-list/utils'
 
 export const useEditProject = () => {
   const client = useHttp()
   const queryClient = useQueryClient()
+  const [searchParams] = useProjectsSearchParams()
+  const queryKey = ['projects', searchParams]
 
   return useMutation(
     (params: Partial<IProject>) => client(`projects/${params.id}`, {
       method: 'PATCH',
       data: params
     }), {
-      onSuccess: () => queryClient.invalidateQueries('projects')
+      onSuccess: () => queryClient.invalidateQueries(queryKey),
+      async onMutate(target) {
+        const previousItems = queryClient.getQueryData(queryKey)
+        queryClient.setQueryData(queryKey, (old?: IProject[]) => {
+          return old?.map(project => project.id === target.id ? {...project, ...target} : project) || []
+        })
+        
+        return {
+          previousItems
+        }
+      },
+      onError(error, newItem, context) {
+        queryClient.setQueryData(queryKey, (context as { previousItems: IProject[] }).previousItems)
+      }
     }
   )
 }

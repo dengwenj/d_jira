@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react'
-import { Table, TableProps, Button, Dropdown, Menu } from 'antd'
+import React, { useMemo, useState } from 'react'
+import { Table, TableProps, Button, Dropdown, Menu, Modal } from 'antd'
 import dayjs from 'dayjs'
 import { useNavigate } from 'react-router-dom'
 
@@ -8,6 +8,8 @@ import Pin from 'components/pin'
 import { useEditProject } from 'hooks/useEditProject'
 import { ButtonNoPadding } from 'components/lab'
 import useProjectModal from 'hooks/useProjectModal'
+
+const { confirm } = Modal
 
 export interface IProject {
   id: number
@@ -40,7 +42,7 @@ export default function List({ users, ...props }: IList) { // props 是个对象
   const navigate = useNavigate() // 相当于原来的 useHistory
   const { mutate } = useEditProject()
   const { startEdit } = useProjectModal()
-
+  
   const pinProject = (id: number) => {
     return (pin: boolean) => {
       mutate({ id, pin  })
@@ -49,6 +51,17 @@ export default function List({ users, ...props }: IList) { // props 是个对象
    const editProject = (id: number) => {
     return () => {
       startEdit(id)
+    }
+  }
+
+  const handleDelete = (value: any) => {
+    return () => {
+      confirm({
+        title: '是否删除',
+        onOk() {},
+        okText: '删除',
+        cancelText: '取消',
+      })
     }
   }
  
@@ -98,13 +111,13 @@ export default function List({ users, ...props }: IList) { // props 是个对象
       },
       {
         title: '操作',
-        render(value: any, project: any) {
+        render(value: any, project: any, index: any) {
           return (
             <Dropdown overlay={<Menu>
               <Menu.Item key={'edit'} onClick={editProject(project.id)}>
                 编辑
               </Menu.Item>
-              <Menu.Item key={'delete'}>
+              <Menu.Item key={'delete'} onClick={handleDelete(value)}>
                 删除
               </Menu.Item>
             </Menu>}>
