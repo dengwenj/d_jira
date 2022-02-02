@@ -1,37 +1,33 @@
+import { useQueryClient, useMutation } from 'react-query' 
+
 import { IProject } from "srceens/project-list/list"
 import { useHttp } from "utils/http"
-import { useAsync } from "./useAsync"
 
 export const useEditProject = () => {
-  const { run, ...asyncResult } = useAsync()
-  const cline = useHttp()
+  const client = useHttp()
+  const queryClient = useQueryClient()
 
-  const mutate = (params: Partial<IProject>) => {
-    return run(cline(`projects/${params.id}`, {
-      data: params,
-      method: 'PATCH'
-    }))
-  }
-
-  return {
-    mutate,
-    ...asyncResult
-  }
+  return useMutation(
+    (params: Partial<IProject>) => client(`projects/${params.id}`, {
+      method: 'PATCH',
+      data: params
+    }), {
+      onSuccess: () => queryClient.invalidateQueries('projects')
+    }
+  )
 }
 
-export const useAddProject = () => {
-  const { run, ...asyncResult } = useAsync()
-  const cline = useHttp()
 
-  const mutate = (params: Partial<IProject>) => {
-    return run(cline(`projects/${params.id}`, {
+export const useAddProject = () => {
+  const client = useHttp()
+  const queryClient = useQueryClient()
+
+  return useMutation(
+    (params: Partial<IProject>) => client(`projects/${params.id}`, {
       data: params,
       method: 'POST'
-    }))
-  }
-
-  return {
-    mutate,
-    ...asyncResult
-  }
+    }), {
+      onSuccess: () => queryClient.invalidateQueries('projects')
+    }
+  )
 }

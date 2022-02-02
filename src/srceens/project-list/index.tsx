@@ -11,7 +11,7 @@ import useDocumentTitle from 'hooks/useDocumentTitle'
 import { useProjectsSearchParams } from './utils'
 import { ButtonNoPadding } from 'components/lab'
 import useProjectModal from 'hooks/useProjectModal'
-
+import { ErrorBox } from 'components/lab'
 
 export default function Index() {
   /**
@@ -20,7 +20,7 @@ export default function Index() {
   useDocumentTitle('项目列表', false)
   
   const [param, setParam] = useProjectsSearchParams()
-  const { isLoading, error, data: list, retry } = useProjects(useDebounce(param, 200))
+  const { isLoading, error, data: list } = useProjects(useDebounce(param, 200))
   const { data: users } = useUser()
   const { open } = useProjectModal()
  
@@ -33,8 +33,9 @@ export default function Index() {
         </ButtonNoPadding>
       </HeaderInfo>
       <Search users={users || []} param={param} setParam={setParam}/>
-      {error ? <Typography.Text type='danger'>{error.message}</Typography.Text> : null}
-      <List refresh={retry} loading={isLoading} users={users || []} dataSource={list || []}/>
+      <ErrorBox error={error} />
+      {/* {error ? <Typography.Text type='danger'>{error.message}</Typography.Text> : null} */}
+      <List  loading={isLoading} users={users || []} dataSource={list || []}/>
     </Container>
   )
 }

@@ -21,7 +21,7 @@ export interface IProject {
 // 继承的，TableProps<IProject> 里面的属性如果不是可选的那么 IList 必须要写，是可选的可以不写 
 interface IList extends TableProps<IProject> {
   users: IUser[]
-  refresh?(): void
+  // refresh?(): void
 }
 
 // 示例 以后如果碰到有对象要里面的其中一些属性可以这样
@@ -43,7 +43,7 @@ export default function List({ users, ...props }: IList) { // props 是个对象
 
   const pinProject = (id: number) => {
     return (pin: boolean) => {
-      mutate({ id, pin  }).then(props.refresh)
+      mutate({ id, pin  })
     }
   }
 
