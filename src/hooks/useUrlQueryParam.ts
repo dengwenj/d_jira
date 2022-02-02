@@ -25,6 +25,17 @@ export const useUrlQueryParam = <K extends string>(key: K[]) => {
   ] as const // 字面量推理，变成固定的类型了
 }
 
+export const useSetUrlSearchParam = () => {
+  const [searchParams, setSearchParam] = useSearchParams();
+  return (params: { [key in string]: unknown }) => {
+    const o = clearObject({
+      ...Object.fromEntries(searchParams),
+      ...params,
+    }) as URLSearchParamsInit;
+    return setSearchParam(o);
+  };
+};
+
 
 
 // setSearchParams 当你修改了 url 里面就要变

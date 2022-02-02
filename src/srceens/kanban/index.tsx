@@ -5,6 +5,7 @@ import useDocumentTitle from 'hooks/useDocumentTitle'
 import { useKanbanSearchParams, useProjectInUrl } from './utils'
 import { useKanbans } from 'utils/kanban'
 import KanbanColumn from './kanban-column'
+import SearchPanel from './search-panel'
 
 export default function KanBan() {
   useDocumentTitle('看板列表')
@@ -15,6 +16,7 @@ export default function KanBan() {
   return (
     <div>
       <h1>{currentProject?.name}看板</h1>
+      <SearchPanel />
       <ColumnsContainer>
         {
           kanbans?.map(kanban => {
