@@ -6,20 +6,23 @@ import { clearObject } from "utils"
 import { useHttp } from "utils/http"
 import { useAsync } from "./useAsync"
 
-export const useProjects = (params?: Partial<IProject>) => {
+export const useProjects = (param?: Partial<IProject>) => {
   const client = useHttp()
-  // const { run, ...result } = useAsync<IProject[]>()
+  const { run, ...result } = useAsync<IProject[]>()
 
-  // const fetchProject = () => client('projects', { data: clearObject(params || {}) })
+  const fetchProject = () => client('projects', { data: clearObject(param || {}) })
 
-  // useEffect(() => {
-  //   run(fetchProject(), {
-  //     retry: fetchProject
-  //   })
-  //   // eslint-disable-next-line
-  // }, [params])
+  useEffect(() => {
+    run(fetchProject(), {
+      retry: fetchProject
+    })
+    // eslint-disable-next-line
+  }, [param])
  
-  // return result
+  return result
 
-  return useQuery<IProject[], Error>(['projects', params], () => client('projects', { data: params }))
+  // return useQuery<IProject[], Error>(['projects', params], () => client('projects', { data: params }))
+  // return useQuery<IProject[]>(["projects", clearObject(param || {})], () =>
+  //   client("projects", { data: param })
+  // );
 }

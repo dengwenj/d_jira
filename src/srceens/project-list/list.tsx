@@ -39,14 +39,19 @@ console.log(b); // 是个数组 [2, 3, 4, 4] */
 export default function List({ users, ...props }: IList) { // props 是个对象和上面的示例一样
   const navigate = useNavigate() // 相当于原来的 useHistory
   const { mutate } = useEditProject()
-  const { open } = useProjectModal()
+  const { startEdit } = useProjectModal()
 
   const pinProject = (id: number) => {
     return (pin: boolean) => {
       mutate({ id, pin  })
     }
   }
-
+   const editProject = (id: number) => {
+    return () => {
+      startEdit(id)
+    }
+  }
+ 
   const columns = useMemo(() => {
     return [
       {
@@ -93,13 +98,14 @@ export default function List({ users, ...props }: IList) { // props 是个对象
       },
       {
         title: '操作',
-        render() {
+        render(value: any, project: any) {
           return (
             <Dropdown overlay={<Menu>
-              <Menu.Item key={'edit'}>
-                <ButtonNoPadding type='link' onClick={open}>
-                  编辑
-                </ButtonNoPadding>
+              <Menu.Item key={'edit'} onClick={editProject(project.id)}>
+                编辑
+              </Menu.Item>
+              <Menu.Item key={'delete'}>
+                删除
               </Menu.Item>
             </Menu>}>
               <div style={{ cursor: 'pointer' }}>...</div>
