@@ -45,8 +45,9 @@ export default function KanbanColumn({ kanban }: { kanban: Kanban }) {
   )
 }
 
-const Container = styled.div`
-  min-width: 27rem;
+export const Container = styled.div`
+  margin-top: 5px;
+  min-width: 25rem;
   border-radius: 6px;
   background-color: rgb(244, 245, 247);
   display: flex;
